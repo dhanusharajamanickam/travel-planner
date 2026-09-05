@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Planner</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #0b1f33;
+            --navy-deep: #071827;
+            --navy-soft: #12304d;
+            --sky: #58b4ff;
+            --sky-soft: #dfeeff;
+            --gold: #f2c66d;
+            --white: #ffffff;
+            --off-white: #f4f7fb;
+            --text: #1c2430;
+            --muted: #5b6777;
+            --card-shadow: 0 18px 40px rgba(13, 30, 51, 0.12);
+            --glass: rgba(255, 255, 255, 0.14);
+            --glass-border: rgba(255, 255, 255, 0.18);
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #edf3f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; }
+        img { display: block; max-width: 100%; }
+        button, input { font: inherit; }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 12px;
+            background: var(--white);
+            color: var(--navy);
+            padding: 10px 14px;
+            border-radius: 10px;
+            z-index: 100;
+            font-weight: 700;
+        }
+
+        .skip-link:focus {
+            left: 12px;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 6%;
+            background: rgba(8, 18, 31, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 24px rgba(5, 12, 20, 0.15);
+        }
+
+        .navbar h2 {
+            margin: 0;
+            color: var(--white);
+            font-size: clamp(1.2rem, 2vw, 1.7rem);
+            letter-spacing: 0.02em;
+        }
+
+        .nav-toggle {
+            display: none;
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .nav-toggle .hamburger,
+        .nav-toggle .hamburger::before,
+        .nav-toggle .hamburger::after {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--white);
+            position: relative;
+            border-radius: 999px;
+            transition: all 0.25s ease;
+        }
+
+        .nav-toggle .hamburger::before,
+        .nav-toggle .hamburger::after {
+            content: "";
+            position: absolute;
+            left: 0;
+        }
+
+        .nav-toggle .hamburger::before { top: -7px; }
+        .nav-toggle .hamburger::after { top: 7px; }
+
+        .nav-toggle.open .hamburger { background: transparent; }
+        .nav-toggle.open .hamburger::before { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.open .hamburger::after { transform: translateY(-7px) rotate(-45deg); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-links a {
+            position: relative;
+            color: rgba(255,255,255,0.86);
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--white);
+            background: rgba(255,255,255,0.08);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 680px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(120deg, rgba(9,24,39,0.78), rgba(9,24,39,0.38)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 6% 150px;
+        }
+
+        .hero-content {
+            max-width: 760px;
+            text-align: center;
+            color: var(--white);
+            animation: fadeUp 0.8s ease both;
+        }
+
+        .hero-content h1 {
+            margin: 0 0 18px;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 0.96;
+            letter-spacing: -0.04em;
+            font-weight: 800;
+            text-shadow: 0 12px 35px rgba(0,0,0,0.35);
+        }
+
+        .hero-content p {
+            margin: 0 auto 28px;
+            max-width: 620px;
+            font-size: clamp(1rem, 1.4vw, 1.3rem);
+            color: rgba(255,255,255,0.9);
+        }
+
+        .hero .btn,
+        .planner-form .btn,
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 28px;
+            border-radius: 14px;
+            border: none;
+            background: linear-gradient(135deg, #3fa0ff, #1f5dd7);
+            color: var(--white);
+            font-weight: 700;
+            box-shadow: 0 14px 30px rgba(31, 93, 215, 0.26);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hero .btn:hover,
+        .planner-form .btn:hover,
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 30px rgba(31, 93, 215, 0.28);
+        }
+
+        .planner-shell {
+            position: relative;
+            width: min(1100px, 100%);
+            margin: -100px auto 0;
+            z-index: 10;
+        }
+
+        .planner {
+            background: rgba(255,255,255,0.14);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+            border-radius: 28px;
+            padding: 26px;
+        }
+
+        .planner-form {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 0.8fr auto;
+            gap: 18px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.86);
+            font-weight: 700;
+        }
+
+        .form-group input {
+            width: 100%;
+            min-height: 54px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.84);
+            padding: 0 16px;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: rgba(88,180,255,0.8);
+            box-shadow: 0 0 0 4px rgba(88,180,255,0.18);
+        }
+
+        .planner-form .btn {
+            min-height: 54px;
+            padding-inline: 24px;
+            border-radius: 14px;
+            white-space: nowrap;
+        }
+
+        #planMessage {
+            margin: 18px 0 0;
+            min-height: 24px;
+            color: #dff7e6;
+            font-weight: 700;
+            text-align: left;
+            letter-spacing: 0.02em;
+        }
+
+        .features,
+        .popular,
+        .cta-section {
+            padding: 96px 6% 0;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 38px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--navy-deep);
+            letter-spacing: -0.03em;
+        }
+
+        .section-heading p {
+            margin: 12px auto 0;
+            max-width: 680px;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 26px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 28px 24px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(12, 33, 51, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 44px rgba(13, 30, 51, 0.14);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 18px;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, rgba(88,180,255,0.16), rgba(31,93,215,0.12));
+            color: var(--navy);
+        }
+
+        .feature-card h3 {
+            margin: 0 0 12px;
+            font-size: 1.3rem;
+            color: var(--navy-deep);
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .destination-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 28px;
+        }
+
+        .destination-card {
+            position: relative;
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 26px 54px rgba(13, 30, 51, 0.14);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .destination-card .content {
+            padding: 18px 20px 22px;
+        }
+
+        .destination-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.6rem;
+            color: var(--navy-deep);
+        }
+
+        .destination-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.98rem;
+        }
+
+        .cta-section {
+            padding-bottom: 96px;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #0d213b, #163f68 55%, #1d5fa8);
+            border-radius: 28px;
+            padding: 52px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 22px;
+            color: var(--white);
+            box-shadow: 0 26px 60px rgba(8, 18, 31, 0.2);
+        }
+
+        .cta-box h2 {
+            margin: 0 0 8px;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            letter-spacing: -0.03em;
+        }
+
+        .cta-box p {
+            margin: 0;
+            color: rgba(255,255,255,0.8);
+            font-size: 1.03rem;
+        }
+
+        .cta-btn {
+            background: var(--white);
+            color: var(--navy-deep);
+            box-shadow: none;
+            min-width: 210px;
+        }
+
+        footer {
+            background: var(--navy-deep);
+            color: rgba(255,255,255,0.85);
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 0.96rem;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .planner-form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .feature-grid,
+            .destination-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 74px;
+                left: 0;
+                right: 0;
+                padding: 14px 6%;
+                background: rgba(8, 18, 31, 0.98);
+                border-top: 1px solid rgba(255,255,255,0.08);
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .nav-links.open { display: flex; }
+
+            .hero {
+                min-height: 560px;
+                padding-bottom: 110px;
+            }
+
+            .planner-shell {
+                margin-top: -60px;
+            }
+
+            .planner {
+                padding: 18px;
+                border-radius: 22px;
+            }
+
+            .planner-form {
+                grid-template-columns: 1fr;
+            }
+
+            .planner-form .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <header>
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <h2>Travel Planner</h2>
+
+            <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="hamburger" aria-hidden="true"></span>
+            </button>
+
+            <div class="nav-links" id="primary-navigation">
+                <a href="index.html">Home</a>
+                <a href="destinations.html">Destinations</a>
+                <a href="trip.html">My Trip</a>
+                <a href="checklist.html">Checklist</a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="main" class="hero">
+        <div class="hero-content">
+            <h1>Plan Your Next Adventure</h1>
+            <p>Discover amazing destinations and organize your perfect trip with ease.</p>
+            <a href="destinations.html" class="btn">Explore Destinations</a>
+        </div>
+    </section>
+
+    <div class="planner-shell">
+        <section class="planner" aria-label="Trip planner form">
+            <div class="planner-form">
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input type="text" id="destination" placeholder="Where do you want to go?">
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Travel Date</label>
+                    <input type="date" id="date">
+                </div>
+
+                <div class="form-group">
+                    <label for="travelers">Travelers</label>
+                    <input type="number" id="travelers" min="1" value="1">
+                </div>
+
+                <button type="button" class="btn" onclick="planTrip()">Plan My Trip</button>
+            </div>
+
+            <p id="planMessage" aria-live="polite"></p>
+        </section>
+    </div>
+
+    <section class="features">
+        <div class="section-heading">
+            <h2>Why travelers choose us</h2>
+            <p>Build unforgettable journeys with smart planning tools, inspiring destinations, and effortless organization.</p>
+        </div>
+
+        <div class="feature-grid">
+            <article class="feature-card">
+                <div class="feature-icon">✈️</div>
+                <h3>Smart trip planning</h3>
+                <p>From destinations and dates to travelers, in one easy planning hub.</p>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">🏝️</div>
+                <h3>Dream destinations</h3>
+                <p> Beaches, cities, mountains and iconic world landmarks.</p>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">🧳</div>
+                <h3>Stress-free travel</h3>
+                <p>Stay organized with packing lists, trip summaries, and custom checklists that keep you prepared.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="popular">
+        <div class="section-heading">
+            <h2>Popular Destinations</h2>
+        </div>
+
+        <div class="destination-container">
+            <article class="destination-card">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80" alt="Eiffel Tower in Paris, France">
+                <div class="content">
+                    <h3>Paris</h3>
+                    <p>Stroll through iconic streets, scenic cafés, and world-famous landmarks.</p>
+                </div>
+            </article>
+
+            <article class="destination-card">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80" alt="Dubai skyline">
+                <div class="content">
+                    <h3>Dubai</h3>
+                    <p>Experience luxury, skyline views, desert adventures, and modern elegance.</p>
+                </div>
+            </article>
+
+            <article class="destination-card">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1200&q=80" alt="Tokyo city and skyline">
+                <div class="content">
+                    <h3>Tokyo</h3>
+                    <p>Discover vibrant neighborhoods, culture-rich streets, and unforgettable nights.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-box">
+            <a href="destinations.html" class="cta-btn">Explore More</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Travel Planner. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

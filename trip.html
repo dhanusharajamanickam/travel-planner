@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Trip - Travel Planner</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <h2>Travel Planner</h2>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="destinations.html">Destinations</a>
+                <a href="trip.html">My Trip</a>
+                <a href="checklist.html">Checklist</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Page Heading -->
+    <section class="page-heading">
+        <h1>My Trip</h1>
+        <p>Plan and organize your upcoming trip.</p>
+    </section>
+
+
+    <!-- Trip Details -->
+    <section class="trip-section">
+
+        <div class="trip-container">
+
+            <h2>Trip Details</h2>
+
+            <div class="trip-form">
+
+                <div class="form-group">
+                    <label for="tripDestination">Destination</label>
+                    <input
+                        type="text"
+                        id="tripDestination"
+                        placeholder="Enter destination"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="travelerCount">Travelers</label>
+                    <input
+                        type="number"
+                        id="travelerCount"
+                        min="1"
+                        value="1"
+                    >
+                </div>
+
+                <button type="button" onclick="saveTrip()">
+                    Save Trip
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Itinerary -->
+    <section class="itinerary-section">
+
+        <div class="itinerary-container">
+
+            <h2>My Itinerary</h2>
+
+            <div class="itinerary-input">
+
+                <input
+                    type="text"
+                    id="placeInput"
+                    placeholder="Enter a place to visit"
+                >
+
+                <button type="button" onclick="addPlace()">
+                    Add Place
+                </button>
+
+            </div>
+
+            <ul id="placeList"></ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- Saved Trip -->
+    <section class="saved-trip">
+
+        <div class="saved-trip-container">
+
+            <h2>Saved Trip</h2>
+
+            <p id="savedDestination">Destination: Not added</p>
+            <p id="savedDates">Travel Dates: Not added</p>
+            <p id="savedTravelers">Travelers: Not added</p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Travel Planner. All rights reserved.</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

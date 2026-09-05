@@ -1,0 +1,599 @@
+/* =========================
+   General
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f5f7fa;
+    --text: #0b1220;
+    --muted: #6b7280;
+    --accent: #60a5fa;
+    --primary: #1e40af; /* slightly deeper primary for improved contrast */
+    --nav-bg: #0b1220;
+    --focus: rgba(96,165,250,0.22);
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+}
+
+button,
+.btn {
+    cursor: pointer;
+}
+
+
+/* =========================
+   Navigation
+========================= */
+
+/* Skip link for keyboard users */
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: 8px;
+    background: white;
+    color: var(--nav-bg);
+    padding: 8px 12px;
+    border-radius: 6px;
+    z-index: 60;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+.skip-link:focus {
+    left: 12px;
+    top: 12px;
+    outline: none;
+}
+
+.navbar {
+    background-color: var(--nav-bg);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 6%;
+    gap: 12px;
+    position: relative;
+}
+
+.navbar h2 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+/* mobile toggle button (hidden on larger screens) */
+.nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+}
+
+.nav-toggle:focus { outline: 3px solid var(--focus); border-radius: 6px; }
+
+.nav-toggle .hamburger {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: white;
+    position: relative;
+    transition: background .2s ease;
+}
+
+.nav-toggle .hamburger::before,
+.nav-toggle .hamburger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 2px;
+    background: white;
+    transition: transform .28s cubic-bezier(.2,.9,.2,1), opacity .18s ease;
+}
+
+.nav-toggle .hamburger::before { top: -7px; }
+.nav-toggle .hamburger::after { top: 7px; }
+
+/* open state for hamburger -> X */
+.nav-toggle.open .hamburger { background: transparent; }
+.nav-toggle.open .hamburger::before { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open .hamburger::after { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-links {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+    color: var(--accent);
+    outline: none;
+    background: rgba(255,255,255,0.04);
+}
+
+/* when the nav is opened on mobile we'll add the "open" class to the nav-links */
+.nav-links.open {
+    display: flex;
+}
+
+
+/* =========================
+   Home Hero
+========================= */
+
+.hero {
+    min-height: 520px;
+
+    background-image:
+        linear-gradient(
+            rgba(3, 7, 18, 0.45),
+            rgba(3, 7, 18, 0.3)
+        ),
+        url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 820px;
+    padding: 36px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+    border-radius: 12px;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 22px;
+    color: rgba(255,255,255,0.9);
+}
+
+
+/* =========================
+   Buttons
+========================= */
+
+.btn,
+button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    box-shadow: 0 6px 18px rgba(30,64,175,0.16);
+    transition: transform .14s ease, box-shadow .14s ease, background-color .14s ease;
+}
+
+.btn:hover,
+button:hover {
+    background-color: #153e8a;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(21,61,138,0.22);
+}
+
+button:focus,
+.btn:focus { outline: 3px solid var(--focus); border-radius: 10px; }
+
+/* small secondary button style */
+.btn.secondary { background: white; color: var(--primary); border: 1px solid rgba(30,64,175,0.10); box-shadow: none; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .btn, button, .destination-card, .planner-form button { transition: none !important; transform: none !important; }
+    .nav-toggle .hamburger::before, .nav-toggle .hamburger::after { transition: none !important; }
+}
+
+
+
+/* =========================
+   Form
+========================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+
+/* =========================
+   Home Planner
+========================= */
+
+.planner {
+    background-color: white;
+    padding: 50px 8%;
+    text-align: center;
+}
+
+.planner h2 {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.planner-form {
+    max-width: 1000px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: end;
+}
+
+.planner-form button {
+    grid-column: 1 / -1;
+    width: 220px;
+    justify-self: center;
+}
+
+#planMessage {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   Popular Destinations
+========================= */
+
+.popular {
+    padding: 50px 8%;
+}
+
+.popular h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 35px;
+}
+
+.destination-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.destination-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+
+    box-shadow: 0 8px 24px rgba(15, 23, 36, 0.06);
+
+    transition: transform 0.28s cubic-bezier(.2,.9,.2,1), box-shadow 0.28s;
+}
+
+.destination-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 18px 40px rgba(15,23,36,0.12);
+}
+
+.destination-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.destination-card h3 {
+    font-size: 20px;
+    margin: 14px 18px 6px;
+}
+
+.destination-card p {
+    margin: 0 18px 18px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+
+/* =========================
+   Page Heading
+========================= */
+
+.page-heading {
+    background-color: #e5eefc;
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.page-heading h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.page-heading p {
+    color: #555;
+    font-size: 18px;
+}
+
+
+/* =========================
+   Trip Page
+========================= */
+
+.trip-section,
+.itinerary-section,
+.saved-trip {
+    padding: 40px 8%;
+}
+
+.trip-container,
+.itinerary-container,
+.saved-trip-container {
+    background-color: white;
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.trip-container h2,
+.itinerary-container h2,
+.saved-trip-container h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+}
+
+.trip-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.trip-form button {
+    grid-column: 1 / -1;
+    width: 150px;
+}
+
+
+/* =========================
+   Itinerary
+========================= */
+
+.itinerary-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.itinerary-input input {
+    flex: 1;
+    padding: 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    font-size: 15px;
+}
+
+#placeList {
+    list-style: none;
+}
+
+#placeList li {
+    background-color: #f1f5f9;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+
+    border-radius: 6px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#placeList li button {
+    background-color: #dc2626;
+    padding: 7px 12px;
+    font-size: 13px;
+}
+
+#placeList li button:hover {
+    background-color: #b91c1c;
+}
+
+
+/* =========================
+   Saved Trip
+========================= */
+
+.saved-trip-container p {
+    background-color: #f1f5f9;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+
+/* =========================
+   Checklist
+========================= */
+
+.checklist-section {
+    padding: 50px 8%;
+}
+
+.checklist-container {
+    max-width: 700px;
+    margin: auto;
+
+    background-color: white;
+    padding: 30px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.checklist-container h2 {
+    margin-bottom: 25px;
+}
+
+.checklist-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.checklist-input input {
+    flex: 1;
+    padding: 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    font-size: 15px;
+}
+
+#checklist {
+    list-style: none;
+}
+
+#checklist li {
+    background-color: #f1f5f9;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+
+    border-radius: 6px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* =========================
+   Footer
+========================= */
+
+footer {
+    background-color: #1f2937;
+    color: white;
+
+    text-align: center;
+
+    padding: 20px;
+    margin-top: 40px;
+}
+
+
+/* =========================
+   Responsive Design
+========================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        flex-direction: column;
+        padding: 12px 6%;
+        gap: 10px;
+        z-index: 40;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .hero-content h1 {
+        font-size: 34px;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+    }
+
+    .planner-form {
+        grid-template-columns: 1fr;
+    }
+
+    .planner-form button {
+        grid-column: auto;
+    }
+
+    .destination-container {
+        grid-template-columns: 1fr;
+    }
+
+    .trip-form {
+        grid-template-columns: 1fr;
+    }
+
+    .trip-form button {
+        grid-column: auto;
+    }
+
+    .itinerary-input,
+    .checklist-input {
+        flex-direction: column;
+    }
+}

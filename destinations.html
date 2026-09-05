@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations - Travel Planner</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <h2>Travel Planner</h2>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="destinations.html">Destinations</a>
+                <a href="trip.html">My Trip</a>
+                <a href="checklist.html">Checklist</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Page Heading -->
+    <section class="page-heading">
+        <h1>Explore Destinations</h1>
+        <p>Discover beautiful places for your next adventure.</p>
+    </section>
+
+
+    <!-- Destination Cards -->
+    <section class="destinations">
+
+        <div class="destination-container">
+
+            <!-- Paris -->
+            <div class="destination-card">
+                <img
+                    src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80"
+                    alt="Paris"
+                >
+
+                <div class="card-content">
+                    <h2>Paris</h2>
+                    <p>France</p>
+
+                    <p>
+                        Explore the Eiffel Tower, museums,
+                        beautiful streets and French culture.
+                    </p>
+
+                    <p><strong>Best Time:</strong> April - June</p>
+                    <p><strong>Budget:</strong> $1000 - $1500</p>
+
+                    <button onclick="addToTrip('Paris')">
+                        Add to Trip
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Dubai -->
+            <div class="destination-card">
+                <img
+                    src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80"
+                    alt="Dubai"
+                >
+
+                <div class="card-content">
+                    <h2>Dubai</h2>
+                    <p>United Arab Emirates</p>
+
+                    <p>
+                        Enjoy modern architecture, shopping,
+                        beaches and exciting desert adventures.
+                    </p>
+
+                    <p><strong>Best Time:</strong> November - March</p>
+                    <p><strong>Budget:</strong> $800 - $1300</p>
+
+                    <button onclick="addToTrip('Dubai')">
+                        Add to Trip
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Tokyo -->
+            <div class="destination-card">
+                <img
+                    src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80"
+                    alt="Tokyo"
+                >
+
+                <div class="card-content">
+                    <h2>Tokyo</h2>
+                    <p>Japan</p>
+
+                    <p>
+                        Experience Japanese culture, technology,
+                        food and exciting city life.
+                    </p>
+
+                    <p><strong>Best Time:</strong> March - May</p>
+                    <p><strong>Budget:</strong> $1200 - $1800</p>
+
+                    <button onclick="addToTrip('Tokyo')">
+                        Add to Trip
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- London -->
+            <div class="destination-card">
+                <img
+                    src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80"
+                    alt="London"
+                >
+
+                <div class="card-content">
+                    <h2>London</h2>
+                    <p>United Kingdom</p>
+
+                    <p>
+                        Visit famous landmarks, museums,
+                        parks and historic places.
+                    </p>
+
+                    <p><strong>Best Time:</strong> May - September</p>
+                    <p><strong>Budget:</strong> $1000 - $1600</p>
+
+                    <button onclick="addToTrip('London')">
+                        Add to Trip
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Bali -->
+            <div class="destination-card">
+                <img
+                    src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+                    alt="Bali"
+                >
+
+                <div class="card-content">
+                    <h2>Bali</h2>
+                    <p>Indonesia</p>
+
+                    <p>
+                        Relax on beautiful beaches and explore
+                        temples, nature and local culture.
+                    </p>
+
+                    <p><strong>Best Time:</strong> April - October</p>
+                    <p><strong>Budget:</strong> $600 - $1000</p>
+
+                    <button onclick="addToTrip('Bali')">
+                        Add to Trip
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Singapore -->
+            <div class="destination-card">
+                <img
+                    src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=600&q=80"
+                    alt="Singapore"
+                >
+
+                <div class="card-content">
+                    <h2>Singapore</h2>
+                    <p>Singapore</p>
+
+                    <p>
+                        Discover modern attractions, gardens,
+                        food and beautiful city views.
+                    </p>
+
+                    <p><strong>Best Time:</strong> February - April</p>
+                    <p><strong>Budget:</strong> $700 - $1200</p>
+
+                    <button onclick="addToTrip('Singapore')">
+                        Add to Trip
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Travel Planner. All rights reserved.</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

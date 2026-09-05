@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist - Travel Planner</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <h2>Travel Planner</h2>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="destinations.html">Destinations</a>
+                <a href="trip.html">My Trip</a>
+                <a href="checklist.html">Checklist</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Page Heading -->
+    <section class="page-heading">
+        <h1>Travel Checklist</h1>
+        <p>Prepare everything you need for your trip.</p>
+    </section>
+
+
+    <!-- Checklist Section -->
+    <section class="checklist-section">
+
+        <div class="checklist-container">
+
+            <h2>My Packing List</h2>
+
+            <div class="checklist-input">
+                <input
+                    type="text"
+                    id="checklistInput"
+                    placeholder="Enter an item..."
+                >
+
+                <button onclick="addChecklistItem()">
+                    Add Item
+                </button>
+            </div>
+
+            <ul id="checklist"></ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Travel Planner. All rights reserved.</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
