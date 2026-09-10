@@ -45,7 +45,7 @@ Travel Planner is a frontend web application that helps users plan and organize 
 - AI-based travel recommendations
 - Mobile application
 
-## Project Structure
+## Project 
 
 ```text
 Travel Planner/
@@ -56,3 +56,7 @@ Travel Planner/
 ├── style.css
 ├── script.js
 └── README.md
+
+## Live Demo
+
+https://travel-planner-tau-eight.vercel.app
